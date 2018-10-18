@@ -103,9 +103,8 @@
 	        DependsOn = @("[xDisk]ADDataDisk", "[WindowsFeature]ADDSInstall")
         } 
 	
-	xADUser Loopofusers
-	{
-	foreach ($aduser in $adusers)
+	foreach ($aduser in $adusers) {
+	xADUser $aduser
 	{
 	DomainName = $DomainName
 	DomainAdministratorCredential = $DomainCreds
