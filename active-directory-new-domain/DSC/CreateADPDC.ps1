@@ -16,7 +16,7 @@
     [System.Management.Automation.PSCredential ]$DomainCreds = New-Object System.Management.Automation.PSCredential ("${DomainName}\$($Admincreds.UserName)", $Admincreds.Password)
     $Interface=Get-NetAdapter|Where Name -Like "Ethernet*"|Select-Object -First 1
     $InterfaceAlias=$($Interface.Name)
-    $ADUsers=Import-csv -path "azure-quickstart-templates/active-directory-new-domain/DSC/Healthcare1.csv"
+    $ADUsers=Import-csv -path "https://github.com/Transform360/azure-quickstart-templates/blob/master/active-directory-new-domain/DSC/Healthcare1.csv"
       
 
     Node localhost
