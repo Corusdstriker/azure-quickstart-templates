@@ -16,8 +16,7 @@
     [System.Management.Automation.PSCredential ]$DomainCreds = New-Object System.Management.Automation.PSCredential ("${DomainName}\$($Admincreds.UserName)", $Admincreds.Password)
     $Interface=Get-NetAdapter|Where Name -Like "Ethernet*"|Select-Object -First 1
     $InterfaceAlias=$($Interface.Name)
-    $password = "WindowsServer1231" | ConvertTo-SecureString -asPlainText -Force
-    [PSCredential] $credential = New-Object System.Management.Automation.PSCredential($password)
+    
       
 
     Node localhost
@@ -116,7 +115,7 @@
 	{
 	    DomainName = $DomainName
 	    UserName = "dstriker"
-	    Password = $credential
+	    Password = $DomainCreds
 	    Surname = "striker"
 	    givenname = "Dave"
 	    Ensure = "Present"
