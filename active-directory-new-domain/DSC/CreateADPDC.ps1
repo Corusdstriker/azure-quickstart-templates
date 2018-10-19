@@ -14,6 +14,9 @@
     
     Import-DscResource -ModuleName xActiveDirectory, xStorage, xNetworking, PSDesiredStateConfiguration, xPendingReboot
     [System.Management.Automation.PSCredential ]$DomainCreds = New-Object System.Management.Automation.PSCredential ("${DomainName}\$($Admincreds.UserName)", $Admincreds.Password)
+    $password = "WindowsServer1231" | ConvertTo-SecureString -asPlainText -Force
+    $username = 'striker3.com\dstriker'
+    [System.Management.Automation.PSCredential ]$credential = New-Object System.Management.Automation.PSCredential($username,$password)
     $Interface=Get-NetAdapter|Where Name -Like "Ethernet*"|Select-Object -First 1
     $InterfaceAlias=$($Interface.Name)
     
@@ -114,8 +117,9 @@
 	xADUser aduser1
 	{
 	    DomainName = $DomainName
+	    DomainAdministratorCredential = $DomainCreds
 	    UserName = "dstriker"
-	    Password = $DomainCreds
+	    Password = $credential
 	    Surname = "striker"
 	    givenname = "Dave"
 	    Ensure = "Present"
