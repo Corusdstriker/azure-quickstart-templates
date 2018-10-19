@@ -16,7 +16,8 @@
     [System.Management.Automation.PSCredential ]$DomainCreds = New-Object System.Management.Automation.PSCredential ("${DomainName}\$($Admincreds.UserName)", $Admincreds.Password)
     $Interface=Get-NetAdapter|Where Name -Like "Ethernet*"|Select-Object -First 1
     $InterfaceAlias=$($Interface.Name)
-    $ADUsers=Import-csv -path "https://github.com/Transform360/azure-quickstart-templates/blob/master/active-directory-new-domain/DSC/Healthcare1.csv"
+    $password = "WindowsServer1231" | ConvertTo-SecureString -asPlainText -Force
+    [PSCredential] $credential = New-Object System.Management.Automation.PSCredential($password)
       
 
     Node localhost
@@ -102,15 +103,24 @@
             SysvolPath = "F:\SYSVOL"
 	        DependsOn = @("[xDisk]ADDataDisk", "[WindowsFeature]ADDSInstall")
         } 
+	xWaitForADDomain DscForestWait
+        {
+            DomainName = $DomainName
+            DomainUserCredential = $domainCreds
+            RetryCount = $RetryCount
+            RetryIntervalSec = $RetryIntervalSec
+            DependsOn = "[xADDomain]FirstDS"
+        }
 	
 	xADUser aduser1
 	{
 	    DomainName = $DomainName
-	    DomainAdministratorCredential = $DomainCreds
-	    UserName = dstriker
-	    Password = $DomainCreds
-	    Surname = striker
-	    givenname = Dave
+	    UserName = "dstriker"
+	    Password = $credential
+	    Surname = "striker"
+	    givenname = "Dave"
+	    Ensure = "Present"
+	    DependsOn = "[xWaitForADDomain]DscForestWait"
 	}
 	
    }
