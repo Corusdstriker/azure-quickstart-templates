@@ -113,14 +113,5 @@
 	    givenname = Dave
 	}
 	
-	xADUser aduser2
-	{
-	    DomainName = $DomainName
-	    DomainAdministratorCredential = $DomainCreds
-	    UserName = test
-	    Password = $DomainCreds
-	    Surname = tester
-	    givenname = test
-	}
    }
 } 
