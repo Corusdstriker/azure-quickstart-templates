@@ -103,17 +103,24 @@
 	        DependsOn = @("[xDisk]ADDataDisk", "[WindowsFeature]ADDSInstall")
         } 
 	
-	foreach ($aduser in $adusers) {
-	xADUser $aduser
+	xADUser aduser1
 	{
-	DomainName = $DomainName
-	DomainAdministratorCredential = $DomainCreds
-	UserName = $aduser.username
-	Password = $DomainCreds
-	Surname = $aduser.surname
-	givenname = $ADuser.givenname
+	    DomainName = $DomainName
+	    DomainAdministratorCredential = $DomainCreds
+	    UserName = dstriker
+	    Password = $DomainCreds
+	    Surname = striker
+	    givenname = Dave
 	}
-}
-
+	
+	xADUser aduser2
+	{
+	    DomainName = $DomainName
+	    DomainAdministratorCredential = $DomainCreds
+	    UserName = test
+	    Password = $DomainCreds
+	    Surname = tester
+	    givenname = test
+	}
    }
 } 
