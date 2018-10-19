@@ -115,7 +115,7 @@
 	{
 	    DomainName = $DomainName
 	    UserName = "dstriker"
-	    Password = $DomainCreds.password
+	    Password = $DomainCreds
 	    Surname = "striker"
 	    givenname = "Dave"
 	    Ensure = "Present"
